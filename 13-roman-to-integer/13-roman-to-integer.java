@@ -1,44 +1,21 @@
 class Solution {
     public int romanToInt(String s) {
- int a[]=new int[s.length()];
-        int S=0;
-        
-
-        
-            int t=0;
-            for(int j=a.length-1;j>=0;j--)
-            {
-                if(s.charAt(j)=='I')
-                    a[j]=1;
-                if(s.charAt(j)=='V')
-                    a[j]=5;
-                if(s.charAt(j)=='X')
-                    a[j]=10;
-                if(s.charAt(j)=='L')
-                    a[j]=50;
-                if(s.charAt(j)=='C')
-                    a[j]=100;
-                if(s.charAt(j)=='D')
-                    a[j]=500;
-                if(s.charAt(j)=='M')
-                    a[j]=1000;
-                
-                if(j==a.length-1)
-                {
-                    S=S+a[j];
-                    t=a[j];
-                }
-                if(a[j]<t)
-                {
-                    S=S-a[j];
-                }
-                if(j!=a.length-1&&a[j]>=t)
-                {
-                    S=S+a[j];
-                    t=a[j];
-                }
-            }
-        
-        return S;
+        int num=0,ans=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='I') num=1;
+             else if(s.charAt(i)=='V') num=5;
+             else if(s.charAt(i)=='X') num=10;
+             else if(s.charAt(i)=='L') num=50;
+             else if(s.charAt(i)=='C') num=100;
+             else if(s.charAt(i)=='D') num=500;
+             else if(s.charAt(i)=='M') num=1000;
+             
+            if(i<s.length()-1&&s.charAt(i)=='I'&& (s.charAt(i+1)=='V'||s.charAt(i+1)=='X')) num=-1;
+        else if(i<s.length()-1&&s.charAt(i)=='X'&& (s.charAt(i+1)=='L'||s.charAt(i+1)=='C')) num=-10; 
+        else if(i<s.length()-1&&s.charAt(i)=='C'&& (s.charAt(i+1)=='D'||s.charAt(i+1)=='M')) num=-100;  
+            
+         ans=ans+num;   
+        }
+        return ans;
     }
 }
