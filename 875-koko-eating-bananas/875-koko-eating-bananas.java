@@ -18,7 +18,7 @@ class Solution {
             if(sum>h) min=mid+1;
             else if(sum<=h) {
                 max=mid-1;
-                k=Math.min(mid,k);
+                k=mid;
                             }
 
             }
