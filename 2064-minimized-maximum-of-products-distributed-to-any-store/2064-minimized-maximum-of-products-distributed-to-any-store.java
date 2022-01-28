@@ -1,28 +1,32 @@
 class Solution {
-    public int minimizedMaximum(int n, int[] quantities) {
-        int start = 1, end = Integer.MIN_VALUE, result = 1; // answer will lie between 1 and max(quantities)
-        for(int quantity : quantities) {
-            end = Math.max(end, quantity);
+    public int minimizedMaximum(int n, int[] q) {
+       int minProd=0, maxProd=q[0];
+        for(int i=0;i<q.length;i++){
+            maxProd=Math.max(q[i],maxProd);
+            minProd+=q[i];
         }
-        while(start <= end) {
-            int mid = start + (end - start) / 2;
-            if(check(quantities, n, mid)) {
-                result = mid; // We have found a potential answer but need to check if we can do better
-                end = mid - 1;
-            } else {
-                start = mid + 1;
+        if(n==q.length) return maxProd;
+        minProd=(int)Math.ceil((float)minProd/n);
+  
+        int ans=minProd;
+        while(minProd<=maxProd){
+            int mid=minProd+(maxProd-minProd)/2;
+            int sum=0;
+            for(int i=0;i<q.length;i++) {
+                sum += (int) Math.ceil((float) q[i] / mid);
             }
+            if(sum<=n) {
+                ans=mid;
+                maxProd=mid-1;
+            }
+            else minProd=mid+1;
+
         }
-        return result;
+        return ans;
+
     }
-    
-    private boolean check(int[] quantities, int n, int target) {
-        int count = 0;
-        for(int quantity : quantities) {
-            count += quantity % target == 0 ? quantity / target : quantity / target + 1;
-        }
-        return count <= n;
-    }
+
+   
     
 }
   
