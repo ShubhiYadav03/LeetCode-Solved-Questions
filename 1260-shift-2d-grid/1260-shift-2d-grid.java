@@ -12,11 +12,11 @@ class Solution {
       }  
       }
         
-             List<List<Integer>> result = new ArrayList<>();
-        for(int[] row : grid) {
-            result.add(Arrays.stream(row).boxed().collect(Collectors.toList()));
-        }
-        return result;
+    List<List<Integer>> list = new ArrayList<>();
+    for(int[] rows : grid) {
+list.add(Arrays.stream(rows).boxed().collect(Collectors.toList()));       }
+
+        return list;
       
      
     }
