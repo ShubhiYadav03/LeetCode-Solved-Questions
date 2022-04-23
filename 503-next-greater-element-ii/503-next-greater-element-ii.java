@@ -5,8 +5,7 @@ class Solution {
         st.push(0);
         for(int i=1;i<nums.length*2;i++){
             while(st.size()>0&&nums[st.peek()]<nums[i%nums.length]){
-                ans[st.peek()]=nums[i%nums.length];
-                st.pop();
+                ans[st.pop()]=nums[i%nums.length];
                 
             }
             if(i<nums.length) st.push(i);         
