@@ -14,8 +14,8 @@ class Solution {
         if (n ==0) return 1;
         if(x==0) return 0;
         //if(n==1) return x;
-        double res=pow(x,n/2);
-        res=res*res;
+        double res=pow(x*x,n/2);
+        // res=res*res;
         return (n%2==0)? res:res*x;
         
         
