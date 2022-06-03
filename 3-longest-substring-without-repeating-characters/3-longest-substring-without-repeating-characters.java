@@ -8,9 +8,12 @@ class Solution {
                 hs.add(ch);
                 r++;        
             } else{
-                hs.remove(s.charAt(l));
-                l++;       
-                }
+                while(hs.contains(ch)) {
+                hs.remove(s.charAt(l++));
+            }
+                hs.add(ch);
+                r++;
+            }
               max=Math.max(hs.size(),max);       
             }
             
