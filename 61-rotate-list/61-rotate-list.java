@@ -28,9 +28,6 @@ class Solution {
             temp3.next=head;
             temp2.next=null;
             head=temp3;
-            
-            System.out.println(temp.val);
-            System.out.println(temp2.val);
             k--;
         }
         
