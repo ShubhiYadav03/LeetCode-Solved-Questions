@@ -17,19 +17,21 @@ class Solution {
                 size++;
                 temp=temp.next;            
             }
-        k=k%(size+1);
-        while(k>0){    
-            
+        System.out.println(temp.val);
+        temp.next=head;
+        k=k%(size+1);       
             ListNode temp2=head, temp3=null;
-            for(int i=0;i<size-1;i++){
+            for(int i=1;i<size-k+1;i++){
                 temp2=temp2.next;     
             }
+        System.out.println(temp2.val);
+       // System.out.println(temp3.val);
             temp3=temp2.next;
-            temp3.next=head;
+            
             temp2.next=null;
             head=temp3;
-            k--;
-        }
+            
+        
         
         return head;
     }
