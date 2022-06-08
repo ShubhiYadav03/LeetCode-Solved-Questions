@@ -5,13 +5,13 @@ class Solution {
         else{
             return -1;
         } }
-      int p=peakIndex(nums);
-        
+      int p=peakIndex(nums);  
+        int ind=-1;
+        if(target>=nums[0])
+            ind = binarySearch(nums,target,0,p);
+        else 
+            ind = binarySearch(nums,target,p+1,nums.length-1);
        
-       int ind= binarySearch(nums,target,p+1,nums.length-1);
-       if(ind==-1){
-             ind= binarySearch(nums,target,0,p);
-        }
     return ind;
     }
     public int binarySearch(int[] nums,int target,int start,int end){
@@ -31,13 +31,6 @@ class Solution {
            
             if(mid<nums.length-1 && nums[mid]>nums[mid+1]) return mid;
             if(mid>0 && nums[mid-1]>nums[mid]) return mid-1;
-           //  //if(mid==0){
-           //      if(nums[mid]>nums[mid+1])  return mid;
-           //      else return mid+1;
-           //  }
-           // // if(mid==nums.length-1){
-           //      return mid;
-           //  }
           
             if(nums[mid]>=nums[start]){
                 start=mid+1;
