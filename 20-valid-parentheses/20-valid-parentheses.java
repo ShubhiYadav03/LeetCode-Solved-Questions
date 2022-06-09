@@ -13,9 +13,8 @@ class Solution {
                 else if(ch==']'&&st.peek()=='[') st.pop();
                 else if(ch=='}'&&st.peek()=='{') st.pop();
                 else return false;
-            }else{
-                if(ch==')'||ch=='}'||ch==']') return false;
-            }
+            }else
+                return false;
         }
         
         return st.isEmpty();
