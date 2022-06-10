@@ -17,6 +17,5 @@ class Solution {
         }
         
         prev.next=null;
-        System.out.println(prev.val);
     }
 }
