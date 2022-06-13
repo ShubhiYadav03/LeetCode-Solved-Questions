@@ -9,7 +9,7 @@
  */
 class Solution {
     TreeNode ancestor;
-    int i=1;
+
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {       
         lca(root,p,q);
         return ancestor;      
@@ -27,7 +27,6 @@ class Solution {
         
         if( left && right){
             ancestor=root;
-            //i++;
         }
         
         return left || right;
