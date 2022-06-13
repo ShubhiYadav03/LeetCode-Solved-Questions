@@ -26,7 +26,6 @@ class Solution {
         int right=height(node.right);
         
         if(left!=right&&Math.abs(left-right)!=1){
-            System.out.println(left+""+right);
             balance=false;
         }
         return Math.max(left,right)+1;
