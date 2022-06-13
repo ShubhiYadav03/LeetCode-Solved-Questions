@@ -23,7 +23,7 @@ class Solution {
     
     boolean symmetric(TreeNode nodeleft,TreeNode noderight){
         if(nodeleft==null && noderight==null) return true;
-        if((nodeleft==null && noderight!=null) || (nodeleft!=null && noderight==null)) return false;
+        if(nodeleft==null || noderight==null) return false;
         
         if(nodeleft.val!=noderight.val) return false;
         boolean left = symmetric(nodeleft.left,noderight.right);
