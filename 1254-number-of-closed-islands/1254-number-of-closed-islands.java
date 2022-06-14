@@ -17,8 +17,8 @@ class Solution {
     
     boolean dfs(int[][] grid,int i,int j){
         if(i<0 || j<0 || i>=grid.length || j>=grid[0].length ) return false;
-        if(grid[i][j]==2 || grid[i][j]==1) return true;
-        grid[i][j]=2;
+        if(grid[i][j]==1) return true;
+        grid[i][j]=1;
         
         boolean top=dfs(grid,i-1,j);
         boolean bottom=dfs(grid,i+1,j);
