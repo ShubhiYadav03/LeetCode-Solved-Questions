@@ -1,6 +1,7 @@
 class Solution {
-    int max=0,enclaves=0;
+    int max=0;
     public int numEnclaves(int[][] grid) {
+        int enclaves=0;
 
         for(int i=0;i<grid.length;i++){
             for(int j=0;j<grid[0].length;j++){
