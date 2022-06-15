@@ -28,14 +28,11 @@ class Solution {
             node.right=node.left;
             node.left=null;
         }
-//         else {
-//             node.left=right;
-//             node.right=null;
-//         }
+
         
-        if(right==null && left==null) return node;
-        if(right==null) return left;
-        return right;
+        if(right!=null) return right;
+        if(left!=null) return left;
+        return node;
         
     }
 }
