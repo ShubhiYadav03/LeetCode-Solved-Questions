@@ -24,12 +24,12 @@ class Solution {
             ancestor=node;
             return true;
         }
-        boolean left=false,right=false;
+        
         if(node.val>p.val && node.val>q.val)  return lca(node.left,p,q);
         else if(node.val>p.val && node.val>q.val) return lca(node.right,p,q);
         
-        left=lca(node.left,p,q);
-        right=lca(node.right,p,q);
+        boolean left=lca(node.left,p,q);
+        boolean right=lca(node.right,p,q);
        
         if(i==0 && left && right){
             ancestor=node;
