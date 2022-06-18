@@ -32,7 +32,7 @@ class Solution {
         if(left==1 && right==1) return 0;
         
         if(left==2 || right==2) return 1;
-        sum++;
-        return 2;
+       
+        return -1;
     }
 }
