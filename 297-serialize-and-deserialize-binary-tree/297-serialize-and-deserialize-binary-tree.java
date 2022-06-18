@@ -8,47 +8,42 @@
  * }
  */
 public class Codec {
-    
-    // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        StringBuilder ser=new StringBuilder("");
-        dfs(root,ser);
-        return ser.toString();
+            StringBuilder stringBuilder = new StringBuilder();
+        preOrder(root, stringBuilder);
+        return stringBuilder.toString();
+    }
+
+    public void preOrder(TreeNode root, StringBuilder stringBuilder){
+        if(root == null){
+            stringBuilder.append("#").append(',');
+            return;
+        }
+        stringBuilder.append(String.valueOf(root.val)).append(',');
+        preOrder(root.left, stringBuilder);
+        preOrder(root.right, stringBuilder);
+        return;
     }
 
     // Decodes your encoded data to tree.
+
+    int pointer;
     public TreeNode deserialize(String data) {
-        String[] str=data.split(",");
-        TreeNode node=new TreeNode();
-        System.out.println(Arrays.toString(str));
-        return decode(str);
+        System.out.println(data);
+        pointer = 0;
+        String[] strings = data.split(",");
+        return preOrderDecode(strings);
     }
-    int i=0;
-    TreeNode decode(String[] ch){
-        //if(i>=ch.length) return null;
-        if(ch[i].equals("N")){
-            i++;
+
+    public TreeNode preOrderDecode(String[] encString){
+        if(encString[pointer].equalsIgnoreCase("#")){
+            pointer++;
             return null;
         }
-        TreeNode node=new TreeNode(Integer.valueOf(ch[i++]));
-        // int num=;
-        // node.val=num-48;
-        //i++;
-        node.left=decode(ch);
-        node.right=decode(ch);
-        
-        return node;
-    }
-    
-    void dfs(TreeNode root,StringBuilder ser){
-        if(root==null) {
-            ser.append("N").append(",");
-            return;
-        }
-        ser.append(root.val).append(",");
-        dfs(root.left,ser);
-        dfs(root.right,ser);
-        
+        TreeNode cur = new TreeNode(Integer.valueOf(encString[pointer++]));
+        cur.left = preOrderDecode(encString);
+        cur.right = preOrderDecode(encString);
+        return cur;
     }
 }
 
