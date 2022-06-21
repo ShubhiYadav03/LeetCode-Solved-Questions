@@ -6,7 +6,7 @@ class Solution {
         for(int i=0;i<numRows;i++){
             list.add(new StringBuilder(""));
         }
-        for(int i=0;i<s.length();i+=numRows*2-2){
+        while(k<s.length()){
             for(int j=0;j<numRows&&k<s.length();j++){
                 list.get(j).append(s.charAt(k));
                 k++;
