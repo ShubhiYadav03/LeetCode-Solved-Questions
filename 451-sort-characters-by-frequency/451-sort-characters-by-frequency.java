@@ -1,25 +1,20 @@
 class Solution {
     public String frequencySort(String s) {
-        // PriorityQueue<Pair<Integer,Integer>> pq=new Pair(Collections.reverseOrder());
-        Map<Character,Integer> hm=new HashMap();
-        for(int i=0;i<s.length();i++){
-            if(hm.containsKey(s.charAt(i))) hm.put(s.charAt(i),hm.get(s.charAt(i))+1);
-            else hm.put(s.charAt(i),1);
-        }
+        String result = "";
+Map<Character,Integer> map = new HashMap<>();
+for(char c : s.toCharArray()) map.put(c,map.getOrDefault(c,0)+1);
+
+    PriorityQueue<Character> pq = new PriorityQueue<>((a,b) -> map.get(b) - map.get(a));
+    pq.addAll(map.keySet());
+    
+    while(pq.size() > 0){
+        Character ch = pq.poll();
+        int a = map.get(ch);
         
-        ArrayList<Map.Entry<Character, Integer>> list=new ArrayList<>();
-        for(Map.Entry<Character, Integer> e: hm.entrySet()) {
-            list.add(e);
+        for(int i=0;i<a;i++){
+            result += ch;
         }
-        
-        Collections.sort(list,(a,b)->a.getValue().compareTo(b.getValue()));
-        Collections.reverse(list);
-        String ans="";
-        for(int i=0;i<list.size();i++){
-            String c=list.get(i).getKey()+"";
-            ans+=c.repeat(list.get(i).getValue());
-        }
-        
-        return ans;
+    }
+        return result;
     }
 }
