@@ -18,8 +18,8 @@ class Solution {
         if(root==null) return null;
         
         if(root.val>key) root.left = deleteNode(root.left,key);
-        if(root.val<key) root.right = deleteNode(root.right,key);
-        else if(root.val==key){
+        else if(root.val<key) root.right = deleteNode(root.right,key);
+        else{
             if(root.left!=null && root.right!=null){
                 int max=findMax(root.left);
                 root.val=max;
