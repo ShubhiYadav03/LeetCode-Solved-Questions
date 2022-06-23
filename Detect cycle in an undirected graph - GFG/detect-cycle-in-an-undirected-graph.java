@@ -44,20 +44,16 @@ class Solution {
         return false;     // Code here
     }
     
-    boolean dfs(int v,int par, boolean[] visited, ArrayList<ArrayList<Integer>> adj){
+    boolean dfs(int i,int par, boolean[] visited, ArrayList<ArrayList<Integer>> adj){
         //if(i>=V || visited[i]) return false;
-        visited[v] = true;
-       
-       for(int i:adj.get(v))
-       {
-          
-           if (!visited[i]) {
-               if (dfs(i, v , visited, adj)) return true;
-           }
-
-           else if (i != par)
-               return true;
-       }
+        visited[i]=true;
+        for(int neighbour:adj.get(i)){
+            if(!visited[neighbour]){
+                if(dfs(neighbour,i,visited,adj)) return true;
+            }
+               
+            else if(par!=neighbour) return true;
+        }
         
         return false;
     }
