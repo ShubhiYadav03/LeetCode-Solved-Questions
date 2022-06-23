@@ -5,7 +5,7 @@ class Solution {
         
         for(int i=0;i<x;i++){
             sum=sum+nums[i];
-runningSum[i]=sum;
+            runningSum[i]=sum;
         }
         return runningSum;  
     }
