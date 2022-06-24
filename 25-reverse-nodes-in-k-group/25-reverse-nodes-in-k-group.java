@@ -19,8 +19,7 @@ class Solution {
             Pair<ListNode,ListNode> p = reverse(prev,curr,k);
             curr=p.getValue();
             prev=p.getKey();
-        }
-                
+        }             
         return dummy.next;
     }
     
@@ -33,15 +32,12 @@ class Solution {
             head.next=tail;
             tail=head;
             head=temp;
-            
             i++;
         }
-        
 
-        // =null;
-            ListNode node=prev.next;
-            node.next=head;
-            prev.next=tail;
+        ListNode node=prev.next;
+        node.next=head;
+        prev.next=tail;
         
         if(i<k){
             return reverse(prev,prev.next,i);
