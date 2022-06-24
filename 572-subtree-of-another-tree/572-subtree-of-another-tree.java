@@ -21,7 +21,7 @@ class Solution {
         if(root==null) return false;
         
         if(isSame(root,subroot)){
-            return isSame(root,subroot);
+            return true;
         }
         
         boolean left = isSubtree(root.left,subroot);
