@@ -38,12 +38,10 @@ class Solution {
         }
         
 
-        ListNode node=null;
-        // if(prev!=null && prev.next!=null){
-            node=prev.next;
+        // =null;
+            ListNode node=prev.next;
             node.next=head;
             prev.next=tail;
-        // }
         
         if(i<k){
             return reverse(prev,prev.next,i);
