@@ -14,30 +14,30 @@ class Solution {
         ListNode node=new ListNode();
         ListNode temp=node;
         int sum=0,carry=0;
-        while(temp1!=null&&temp2!=null){
-            sum=temp1.val+temp2.val+carry;
+        while(temp1!=null || temp2!=null || carry!=0){
+            sum=(temp1!=null ? temp1.val : 0)+(temp2!=null ? temp2.val : 0) +carry;
             carry=sum/10;
             temp.next=new ListNode(sum%10);            
             temp=temp.next;
-            temp1=temp1.next;
-            temp2=temp2.next;
+            if(temp1 != null) temp1=temp1.next;
+            if(temp2 != null) temp2=temp2.next;
         }
         
-        while(temp1!=null){
-            sum=temp1.val+carry;
-            carry=sum/10;
-            temp.next=new ListNode(sum%10);            
-            temp=temp.next;
-            temp1=temp1.next;
-        }
-        while(temp2!=null){
-            sum=temp2.val+carry;
-            carry=sum/10;
-            temp.next=new ListNode(sum%10);            
-            temp=temp.next;
-            temp2=temp2.next;
-        }
-        if(carry!=0) temp.next=new ListNode(carry);   
+        // while(temp1!=null){
+        //     sum=temp1.val+carry;
+        //     carry=sum/10;
+        //     temp.next=new ListNode(sum%10);            
+        //     temp=temp.next;
+        //     temp1=temp1.next;
+        // }
+        // while(temp2!=null){
+        //     sum=temp2.val+carry;
+        //     carry=sum/10;
+        //     temp.next=new ListNode(sum%10);            
+        //     temp=temp.next;
+        //     temp2=temp2.next;
+        // }
+        // if(carry!=0) temp.next=new ListNode(carry);   
         return node.next;
     }
 }
