@@ -40,7 +40,7 @@ class Solution {
         prev.next=tail;
         
         if(i<k){
-            return reverse(prev,prev.next,i);
+            return reverse(prev,tail,i);
         }
 
         return new Pair<ListNode,ListNode>(node,head);
