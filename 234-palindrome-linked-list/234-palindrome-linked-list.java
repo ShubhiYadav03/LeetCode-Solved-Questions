@@ -19,8 +19,8 @@ class Solution {
             slow=slow.next;
             fast=fast.next.next;
         }
-        slow.next=reverseList(slow.next);
-        slow=slow.next;
+        slow=reverseList(slow.next);
+        // slow=slow.next;
         
         while(slow!=null){
             if(head.val!=slow.val)
