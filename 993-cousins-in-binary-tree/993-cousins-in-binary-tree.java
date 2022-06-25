@@ -18,9 +18,9 @@ class Solution {
     TreeNode parent1=null, parent2=null;
     int depth1=0, depth2=0;
     public boolean isCousins(TreeNode root, int x, int y) {
-         if(root == null || x == root.val || y == root.val) return false;
+        if(root == null || x == root.val || y == root.val) return false;
         cousins(root,x,y,0);
-        return (parent1!=parent2) && (depth1 == depth2);
+        return (parent1 != parent2) && (depth1 == depth2);
     }
     
     void cousins(TreeNode root, int x, int y, int depth){
