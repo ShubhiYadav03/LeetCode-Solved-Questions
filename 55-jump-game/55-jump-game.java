@@ -7,8 +7,7 @@ class Solution {
                 goal=i;
             }
         }
-        
-        if(goal==0) return true;
-        return false;
+  
+        return goal==0;
     }
 }
