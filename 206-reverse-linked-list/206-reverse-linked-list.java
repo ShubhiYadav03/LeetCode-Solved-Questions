@@ -15,9 +15,7 @@ class Solution {
             ListNode temp=curr.next;
             curr.next=prev;
             prev=curr;
-            curr=temp;
-            
-         
+            curr=temp;   
         }
         return prev;
     }
