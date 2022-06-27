@@ -9,15 +9,14 @@ class Solution {
         while(r<cardPoints.length){
             if(r<cardPoints.length-k){
                 sum+=cardPoints[r];
-                r++;
-                if(r==cardPoints.length-k) min=sum;
+                if(r==cardPoints.length-k-1) min=sum;
             }else{
                 sum-=cardPoints[l];
                 sum+=cardPoints[r];
                 l++;
-                r++;
                 min = Math.min(min,sum);
             }
+            r++;
         }
         
         return total-min;
