@@ -14,16 +14,18 @@
  * }
  */
 class Solution {
+    int ans=0;
     public int goodNodes(TreeNode root) {
-        return good(root,root.val);
-    }
-    int good(TreeNode node,int val){
-        if(node==null) return 0;
-        
-        int left=good(node.left,Math.max(val,node.val));
-        int right=good(node.right,Math.max(val,node.val));
-        int ans=left+right;
-        if(node.val>=val) ans+=1;
+        good(root,root.val);
         return ans;
+    }
+    void good(TreeNode node,int val){
+        if(node==null) return;
+        
+        good(node.left,Math.max(val,node.val));
+        good(node.right,Math.max(val,node.val));
+        
+        if(node.val>=val) ans+=1;
+        
     }
 }
