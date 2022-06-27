@@ -24,17 +24,11 @@ class Solution {
         if(root==null) return;
         
         small(root.left,k);
-        i++;
-        if(i==k){
+        if(++i==k){
             ans = root.val;
             return;
         }
         small(root.right,k);
-        // i++;
-        // if(i==k){
-        //     ans = root.val;
-        //     return;
-        // }
         
     }
 }
