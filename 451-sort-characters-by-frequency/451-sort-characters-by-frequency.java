@@ -4,7 +4,7 @@ class Solution {
 Map<Character,Integer> map = new HashMap<>();
 for(char c : s.toCharArray()) map.put(c,map.getOrDefault(c,0)+1);
 
-    PriorityQueue<Character> pq = new PriorityQueue<>((a,b) -> map.get(b) - map.get(a));
+    PriorityQueue<Character> pq = new PriorityQueue<>((a,b) -> map.get(b).compareTo(map.get(a)));
     pq.addAll(map.keySet());
     
     while(pq.size() > 0){
