@@ -10,7 +10,6 @@ class Solution {
     
     ArrayList<Character> list=new ArrayList<>();
         for(char c: hm.keySet()) {
-            System.out.println(c + " " +hm.get(c));
             list.add(c);
         }
         
