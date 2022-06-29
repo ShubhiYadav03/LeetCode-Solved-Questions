@@ -1,6 +1,5 @@
 class Solution {
     public int minDeletions(String s) {
-        int count = 0;
 
     HashMap<Character,Integer> hm = new HashMap<>();
     char ch[] = s.toCharArray();
@@ -9,20 +8,30 @@ class Solution {
         hm.put(ch[i],hm.getOrDefault(ch[i],0)+1);
     }
     
-    Set<Integer> set = new HashSet<>();
-    for(char c: hm.keySet())
-    {
-        int freq = hm.get(c);
-        if(!set.contains(freq))set.add(freq);
-        else{
-            while(freq> 0 && set.contains(freq))
-            {
-                freq--;
-                count++;
-            }
-            if(freq>0)set.add(freq);
+    ArrayList<Character> list=new ArrayList<>();
+        for(char c: hm.keySet()) {
+            System.out.println(c + " " +hm.get(c));
+            list.add(c);
         }
-    }
-    return count;
+        
+        Collections.sort(list,(a,b)->hm.get(a).compareTo(hm.get(b)));
+        Collections.reverse(list);
+        
+        int expected = hm.get(list.get(0));
+        int del = 0;
+        
+        for(char c: list) {
+    
+            if( hm.get(c) > expected){
+                del +=  hm.get(c) - expected;
+            }
+            else if(hm.get(c) < expected){
+                expected = hm.get(c);
+            }
+            
+            if(expected > 0) expected-- ;
+                
+        }
+        return del;
     }
 }
