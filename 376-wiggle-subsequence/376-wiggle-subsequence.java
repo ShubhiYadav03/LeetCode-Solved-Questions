@@ -9,7 +9,7 @@ class Solution {
         }
         if(j == nums.length) return 1;
         count = (nums[j] - nums[j - 1] > 0) ? 0 : 1;
-        int currSize = 1, maxSize = 1;
+        int currSize = 1;
 
         for(int i = 1; i < nums.length; i++){
             if(count == 1){
@@ -23,11 +23,9 @@ class Solution {
                     currSize++;
                     count = 1;
                 }
-            }
-            
-            maxSize = Math.max(currSize , maxSize);
+            }        
         }
         
-        return maxSize;
+        return currSize;
     }
 }
