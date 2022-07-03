@@ -5,16 +5,14 @@ class Solution {
     }
     
     boolean dfs(int start, boolean[] visited, int[] arr){
-        if(start < 0 || start >= arr.length) return false;
+        if(start < 0 || start >= arr.length || visited[start]) 
+            return false;
+        
         if(arr[start] == 0)
 			return true;
-        if(visited[start] || (arr[start]+start >= arr.length && start-arr[start] < 0)) return false;
-
+    
         visited[start] = true;
-        // if(arr[start]+start >= arr.length) return dfs(start-arr[start], visited, arr);
-        // if(start-arr[start] < 0) return dfs(arr[start]+start, visited, arr);
         
-         
         return dfs(arr[start]+start, visited, arr) || dfs(start-arr[start], visited, arr);
     }
 }
