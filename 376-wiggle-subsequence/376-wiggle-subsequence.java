@@ -11,7 +11,7 @@ class Solution {
         count = (nums[j] - nums[j - 1] > 0) ? 0 : 1;
         int currSize = 1;
 
-        for(int i = 1; i < nums.length; i++){
+        for(int i = j; i < nums.length; i++){
             if(count == 1){
                 if(nums[i] - nums[i - 1] < 0){
                     currSize++;
