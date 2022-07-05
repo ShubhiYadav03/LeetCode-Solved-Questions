@@ -2,7 +2,7 @@ class Solution {
     public int longestConsecutive(int[] nums) {
         if(nums.length < 2) return nums.length;
         
-                Set<Integer> num_set = new HashSet<Integer>();
+        Set<Integer> num_set = new HashSet<Integer>();
         for (int num : nums) {
             num_set.add(num);
         }
@@ -10,7 +10,7 @@ class Solution {
         int longestStreak = 0;
 
         for (int num : num_set) {
-            if (!num_set.contains(num-1)) {
+            if (num_set.contains(num-1)) continue;
                 int currentNum = num;
                 int currentStreak = 1;
 
@@ -20,7 +20,7 @@ class Solution {
                 }
 
                 longestStreak = Math.max(longestStreak, currentStreak);
-            }
+            
         }
 
         return longestStreak;
