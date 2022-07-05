@@ -16,10 +16,9 @@ class Solution {
         ListNode right = getMid(head);
         ListNode temp = right.next;
         right.next = null;
-        right = temp;
-        
+ 
         left = sortList(left);
-        right = sortList(right);
+        right = sortList(temp);
         
         return merge(left, right);
     }
