@@ -2,6 +2,12 @@ class Solution {
     public int fib(int n) {
         if(n < 2) return n;
         
-        return fib(n - 1) + fib(n - 2);
+        int curr = 1, prev = 0;
+        for(int i = 2; i <= n; i++){
+            int temp = curr;
+            curr = curr + prev;
+            prev = temp;
+        }
+        return curr;
     }
 }
