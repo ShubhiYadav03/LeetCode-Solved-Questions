@@ -1,38 +1,25 @@
+
+
 class Solution {
-    private boolean[][] invalid;
-    private char[] c1;
-    private char[] c2;
-    private char[] c3;
-    
     public boolean isInterleave(String s1, String s2, String s3) {
-        c1 = s1.toCharArray();
-        c2 = s2.toCharArray();
-        c3 = s3.toCharArray();
+        if(s3.length() != s1.length() + s2.length()) return false;
+        if(s1.length() == 0 && s2.length() == 0 && s3.length() == 0) return true;
         
-        int m = s1.length(),n=s2.length();
+        HashMap<String, Boolean> hm = new HashMap();
         
-        if(m+n != s3.length())
-            return false;
-        
-        invalid = new boolean[m+1][n+1];
-        
-        return dfs(0,0,0);
+        return dfs(0, 0, s1, s2, s3, hm);
     }
     
-    public boolean dfs(int i, int j, int k){
-        if(invalid[i][j])
-            return false;
+    public boolean dfs(int i, int j, String s1, String s2, String s3, HashMap<String, Boolean> hm){
+        if(i == s1.length() && j == s2.length()) return true;
+    
+        if(hm.containsKey(i + "" + j)) return hm.get(i + "" + j);
         
-        if(k == c3.length)
-            return true;
+        if(i < s1.length() && s1.charAt(i) == s3.charAt(i + j) && dfs(i + 1, j, s1, s2, s3, hm)) return true;
+        if(j < s2.length() && s2.charAt(j) == s3.charAt(i + j) && dfs(i, j + 1, s1, s2, s3, hm)) return true;
         
-        boolean valid = 
-            i<c1.length && c1[i] == c3[k] && dfs(i+1,j,k+1) || 
-            j<c2.length && c2[j] == c3[k] && dfs(i,j+1,k+1);
+        hm.put(i + "" + j, false);
         
-        if(!valid)
-            invalid[i][j] = true;
-        
-        return valid;
+        return false;
     }
 }
