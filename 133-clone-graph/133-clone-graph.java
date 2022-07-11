@@ -29,8 +29,8 @@ class Solution {
     }
     
     Node dfs(Node node, HashMap<Integer, Node> visited){
-        //if(node == null) return null;
-        if(visited.containsKey(node)) return visited.get(node);
+        //if(visited.containsKey(node)) return visited.get(node);
+        
         Node newNode = new Node(node.val);
         visited.put(node.val, newNode);
         
