@@ -15,9 +15,7 @@ class Solution {
         for(int i = 0; i < t.length(); i++){
             if(hm.containsKey(t.charAt(i))) hm.put(t.charAt(i), hm.get(t.charAt(i))-1);
         }
-        
-
-        
+         
         for(char ch : hm.keySet()){
             if(hm.get(ch) != 0) return false;
         }
