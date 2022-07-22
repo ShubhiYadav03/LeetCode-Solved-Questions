@@ -16,9 +16,7 @@
 class Solution {
     List<List<Integer>> list;
     public List<List<Integer>> levelOrder(TreeNode root) {      
-        list = new ArrayList<>();
-        
-        
+        list = new ArrayList<>();       
         solve(0, root);
         return list;
     }
