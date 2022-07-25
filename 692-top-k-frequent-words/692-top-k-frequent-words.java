@@ -6,11 +6,10 @@ class Solution {
             map.put(word, map.getOrDefault(word, 0) + 1); 
         }
         
-//         PriorityQueue<String> pq = new PriorityQueue<>(words.length, (a, b) -> map.get(b) == map.get(a) ? a.compareTo(b) : map.get(b) - map.get(a));
-        
         for (Map.Entry<String, Integer> it: map.entrySet()){
             list.add(it.getKey());
         }
+        
         Collections.sort(list, (a, b) -> map.get(b) == map.get(a) ? a.compareTo(b) : map.get(b) - map.get(a));
         
         return list.subList(0, k);
