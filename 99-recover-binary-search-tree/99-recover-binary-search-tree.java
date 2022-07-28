@@ -16,7 +16,7 @@
 class Solution {
     TreeNode first = null, second = null, prev = null;
     public void recoverTree(TreeNode root) {
-        prev = new TreeNode(Integer.MIN_VALUE);
+       // prev = new TreeNode(Integer.MIN_VALUE);
         recover(root);
         int temp = second.val;
         second.val = first.val;
