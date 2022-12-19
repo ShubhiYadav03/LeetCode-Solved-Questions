@@ -1,7 +1,6 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        ArrayList<ArrayList<Integer>> adj= new ArrayList(numCourses);
-        int[] indegree = new int[numCourses];
+        ArrayList<ArrayList<Integer>> adj = new ArrayList(numCourses);
         
         for(int i = 0; i < numCourses ; i++ ){
             adj.add(new ArrayList());
@@ -11,12 +10,12 @@ class Solution {
             adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
         }
         boolean[] pathvis = new boolean[numCourses];
-        boolean[] visited=new boolean[numCourses];
-        for(int i = 0;i < numCourses; i++){
+        boolean[] visited = new boolean[numCourses];
+        for(int i = 0; i < numCourses; i++){
             if(adj.get(i).size() == 0) continue;
             
             if(!visited[i]){
-                if(dfs(i, visited, pathvis,adj)) return false;
+                if(dfs(i, visited, pathvis, adj)) return false;
             }
         }
         return true;
