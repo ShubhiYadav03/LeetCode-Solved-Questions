@@ -1,6 +1,8 @@
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        int[] ans = new int[numCourses];
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        int k = 0;
+        int[] indegree = new int[numCourses];
         int  num = numCourses - 1;
         
         ArrayList<ArrayList<Integer>> adj = new ArrayList(numCourses);
@@ -10,45 +12,29 @@ class Solution {
         }
         
         for(int i = 0; i < prerequisites.length ; i++){
-            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
+            adj.get(prerequisites[i][1]).add(prerequisites[i][0]);
+            indegree[prerequisites[i][0]]++; 
         }
-        boolean[] pathvis = new boolean[numCourses];
-        boolean[] visited = new boolean[numCourses];
-        Stack<Integer> st = new Stack<>();
-        for(int i = 0; i < numCourses; i++){
-            // if(adj.get(i).size() == 0) continue;
-            
-            if(!visited[i]){
-                if(dfs(i, visited, pathvis, st, adj)) return new int[]{};
-            }
+     
+        Queue<Integer> q = new ArrayDeque<>();
+        
+        for(int i = 0; i < numCourses ; i++){
+            if(indegree[i] == 0)  q.add(i);
         }
         
-        while(!st.isEmpty()){
-            ans[num] = st.pop();
-            num--;
-        }
-//         if(num >= 0){
-//             while(num >= 0){ ans[num] = numCourses - num - 1;
-//                             num--;
-//                            }
-            
-//         }
-        
-        return ans;
-    }
-    
-     boolean dfs(int i, boolean[] visited, boolean[] pathvis, Stack<Integer> st, ArrayList<ArrayList<Integer>> adj){
-        visited[i] = true;
-        pathvis[i] = true;
-        for(int n : adj.get(i)){
-            if(!visited[n]){
-                if(dfs(n, visited, pathvis, st, adj)) return true;
-            }else if(pathvis[n]){
-                return true;
+        while(!q.isEmpty()){
+            int node = q.remove();
+            ans.add(node);
+            for(int n : adj.get(node)){
+                indegree[n]--;
+                if(indegree[n] == 0) q.add(n);
             }
         }
-        st.push(i);
-        pathvis[i] = false;
-        return false;
+        if(ans.size() != numCourses) return new int[]{};
+        int[] res = new int[numCourses];
+        for(int i = 0; i < numCourses ; i++){
+            res[i] = ans.get(i);
+        }
+        return res;
     }
 }
