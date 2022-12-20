@@ -33,7 +33,7 @@ class Solution {
                 safe[i] = 1;
                 return true;
             }
-            else if(visited[n] && safe[n] == 1) safe[i] = 1;
+            // else if(visited[n] && safe[n] == 1) safe[i] = 1;
         }
         pathvis[i] = false;
         return false;
