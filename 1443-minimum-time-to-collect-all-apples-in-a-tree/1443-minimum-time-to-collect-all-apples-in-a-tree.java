@@ -19,17 +19,15 @@ class Solution {
         boolean apple = false;
         for(int n : adj.get(i)){
             if(n != par){
-                time++;
+                // time++;
                 boolean b = dfs(n, i, adj, hasApple);
                 apple = apple | b;
-                if(!b) time--;
-                else time++;
+                if(b) time+=2;
+                // else time++;
             }
         }
         
-        if(hasApple.get(i)){
-            return true;
-        } 
+        if(hasApple.get(i)) return true;
         return apple;
     }
 }
