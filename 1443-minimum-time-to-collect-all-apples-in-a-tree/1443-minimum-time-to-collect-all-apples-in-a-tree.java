@@ -24,15 +24,12 @@ class Solution {
                 apple = apple | b;
                 if(!b) time--;
                 else time++;
-                //return apple;
             }
         }
         
         if(hasApple.get(i)){
-            //time++;
             return true;
         } 
-       // time = (apple) ? time + 1 : time - 1;
         return apple;
     }
 }
