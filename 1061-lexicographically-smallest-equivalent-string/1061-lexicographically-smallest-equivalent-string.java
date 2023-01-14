@@ -1,8 +1,8 @@
 class Solution {
     public String smallestEquivalentString(String s1, String s2, String baseStr) {
-        if(s1.equals("wfvuhbpolgsjwdwvqienpmomdccwgtmnhpebdunnmlrmlorinbfdpbfkqfce") && s2.equals("kfmfristjqcbbhcjibijwgvdjivcbquvgkuukjkwmuhtrwakbnebollmketp") && baseStr.equals("sxpkeugxrfkvqcntuubeebhylaplylvckxppjgikblgnrpuqrkjpyxvnvpvv")){
-            return "axaaaaaxaaaaaaaaaaaaaaayaaaayaaaaxaaaaaaaaaaaaaaaaaayxaaaaaa";
-        }
+        // if(s1.equals("wfvuhbpolgsjwdwvqienpmomdccwgtmnhpebdunnmlrmlorinbfdpbfkqfce") && s2.equals("kfmfristjqcbbhcjibijwgvdjivcbquvgkuukjkwmuhtrwakbnebollmketp") && baseStr.equals("sxpkeugxrfkvqcntuubeebhylaplylvckxppjgikblgnrpuqrkjpyxvnvpvv")){
+        //     return "axaaaaaxaaaaaaaaaaaaaaayaaaayaaaaxaaaaaaaaaaaaaaaaaayxaaaaaa";
+        // }
         Map<Character, SortedSet<Character>> map = new HashMap<>();
         for(int i = 0; i < s1.length(); i++){
             char ch1 = s1.charAt(i);
@@ -31,7 +31,15 @@ class Solution {
                 set.addAll(map.get(ch));
             }
             map.put(key, set);
+            SortedSet<Character> set3 = new TreeSet();
+            set3.addAll(set);
+            for(char ch : set){
+                set3.addAll(map.get(ch));
+            }
+            map.put(key, set3);
         }
+        
+        
         String s ="";
         for(int i = 0; i < baseStr.length(); i++){
             char key = baseStr.charAt(i);
@@ -44,6 +52,7 @@ class Solution {
                 for(char ch : map.get(key)){
                     if(map.get(ch).first() < small) small = map.get(ch).first();
                 }
+                //small = map.get(key).first();
             } 
             s += small;
         }
