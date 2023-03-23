@@ -68,7 +68,7 @@ class Solution
                 if(cap >= wt[idx])
                     pick = dp[idx + 1][cap - wt[idx]] + val[idx];
         
-                int notpick = dp[idx][cap];  
+                int notpick = dp[idx + 1][cap];  
                 dp[idx][cap] = Math.max(pick, notpick);
             }
         }
