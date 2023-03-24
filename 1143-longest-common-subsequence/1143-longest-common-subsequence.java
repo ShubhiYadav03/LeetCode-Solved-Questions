@@ -11,7 +11,7 @@ class Solution {
         
         return tabulation(text1, text2);
     }
-    
+    // TABULATION
     int tabulation(String text1, String text2){
         int m = text1.length(), n = text2.length();
         int[][] dp = new int[m + 1][n + 1];
@@ -20,7 +20,7 @@ class Solution {
             for(int idx2 = n - 1; idx2 >= 0; idx2--){
                 int equal = 0;
                 if(text1.charAt(idx1) == text2.charAt(idx2))
-                    equal = solve(idx1 + 1, idx2 + 1, text1, text2, dp) + 1;
+                    equal = dp[idx1 + 1][idx2 + 1] + 1;
         
                 int pick1 = dp[idx1][idx2 + 1];
                 int pick2 = dp[idx1 + 1][idx2];
