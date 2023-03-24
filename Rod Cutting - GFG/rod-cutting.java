@@ -23,12 +23,31 @@ class RodCutting {
 
 class Solution{
     public int cutRod(int price[], int n) {
-        int[][] dp = new int[n + 1][n + 1];
-        for(int[] row : dp){
-            Arrays.fill(row, -1);
-        }
+        // int[][] dp = new int[n + 1][n + 1];
+        // for(int[] row : dp){
+        //     Arrays.fill(row, -1);
+        // }
         
-        return solve(1, n, price, n, dp);
+        // return solve(1, n, price, n, dp);
+        
+        return tabulation(price, n);
+    }
+    
+    int tabulation(int price[], int n){
+        int[][] dp = new int[n + 2][n + 1];
+        
+        for(int idx = n; idx >= 1; idx--){
+            for(int len = 1; len <= n; len++){
+                int pick = 0;
+                if(len >= idx)
+                    pick = dp[idx][len - idx] + price[idx - 1];
+        
+                int notpick =dp[idx + 1][len];
+        
+                dp[idx][len] = Math.max(pick, notpick);
+            }
+        }
+        return dp[1][n];
     }
     
     int solve(int idx, int len, int price[], int n, int[][] dp){
