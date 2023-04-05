@@ -1,40 +1,22 @@
 class Solution {
-    public int lengthOfLIS(int[] nums) {
-        int n = nums.length;
-        int[][] dp = new int[n + 2][n + 1];
-//         for(int[] row : dp) 
-//             Arrays.fill(row, -1);
+    public int lengthOfLIS(int[] arr) {
+        int n = arr.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
         
-//         return lis(-1, 0, nums, dp);
-        
-        
-        for(int curr = n - 1; curr >= 0; curr--){
-            for(int prev = curr - 1; prev >= -1; prev--){
-                int pick = 0;
-                if(prev == -1 || nums[curr] > nums[prev]){
-                    pick = dp[curr + 1][curr + 1] + 1;
+        for(int i = 1; i < n; i++){
+            for(int j = 0; j < i; j++){
+                if(arr[j] < arr[i]){
+                    dp[i] = Math.max(dp[i], 1 + dp[j]);
                 }
-
-                int notpick = dp[curr + 1][prev + 1];
-                dp[curr][prev + 1] = Math.max(pick, notpick);
             }
         }
+        int max = dp[0];
+        for(int i = 1; i < n; i++){
+            max = Math.max(max, dp[i]);
+        }
         
-        return dp[0][0];
+        return max;
     }
     
-//     int lis(int idx1, int idx2, int[] nums, int[][] dp){
-//         int n = nums.length;
-//         if(idx2 == n || idx1 == n) return 0;
-        
-//         if(dp[idx1 + 1][idx2] != -1) return dp[idx1 + 1][idx2];
-//         int pick = 0;
-//         if(idx1 == -1 || nums[idx2] > nums[idx1]){
-//             pick = lis(idx2, idx2 + 1, nums, dp) + 1;
-//         }
-        
-//         int notpick = lis(idx1, idx2 + 1, nums, dp);
-            
-//         return dp[idx1 + 1][idx2] = Math.max(pick, notpick);
-//     }
 }
