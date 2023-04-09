@@ -60,14 +60,14 @@ class Solution
         int i = 0, profit = 0, job = 0;
         while(i < arr.length){
             int idx = arr[i].deadline;
-                while(idx > 0 && schedule[idx] != 0) idx--;
-                if(schedule[idx] == 0 && idx > 0){
+            while(idx > 0 && schedule[idx] != 0) idx--;
+            
+            if(schedule[idx] == 0 && idx > 0){
                 schedule[idx] = arr[i].id;
                 profit += arr[i].profit;
                 job++;
             }
-            
-            
+
             i++;
             
         }
