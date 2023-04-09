@@ -9,10 +9,17 @@ class Solution {
         for(int num : nums){
             freq[num]++;
         }
-        int[] dp =  new int[max + 1];
-        Arrays.fill(dp, -1);
-        return solve(1, freq, dp);
-          
+        int[] dp =  new int[max + 3];
+//         Arrays.fill(dp, -1);
+//         return solve(1, freq, dp);
+        
+        for(int num = max; num > 0; num--){
+            int pick = dp[num + 2] + freq[num] * num;
+            int notpick = dp[num + 1];
+
+            dp[num] = Math.max(pick, notpick);
+        }
+        return dp[1];
     }
     
     int solve(int num, int[] freq, int[] dp){
