@@ -1,41 +1,46 @@
 class Solution {
+    List<Integer> safeNodes = new ArrayList();
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        boolean[] visited = new boolean[graph.length];
-        boolean[] pathvis = new boolean[graph.length];
-        int[] safe = new int[graph.length];
-        List<Integer> res = new ArrayList<Integer>();
-        for(int i = 0; i < graph.length; i++){
+        int n = graph.length;
+        boolean[] visited = new boolean[n];
+        boolean[] pathVisited = new boolean[n];
+        
+        for(int i = 0; i < n; i++){
             if(!visited[i]){
-                safeNodes(i, graph, pathvis, visited, safe);
+                dfs(i, graph, visited, pathVisited);
             }
         }
         
-        for(int i = 0; i < graph.length; i++){
-             if(safe[i] == 0) res.add(i);
-        }
-        
-        return res;
+        Collections.sort(safeNodes);
+        return safeNodes;
     }
-
-    boolean safeNodes(int i, int[][] graph, boolean[] visited, boolean[] pathvis, int[] safe){
+    
+    boolean dfs(int i, int[][] graph, boolean[] visited, boolean[] pathVisited){
         visited[i] = true;
-        pathvis[i] = true;
-
-        for(int n : graph[i]){
-            if(!visited[n]){
-                boolean cycle = safeNodes(n, graph, pathvis, visited, safe);
-                if(cycle){
-                    safe[i] = 1;
-                    return cycle;
-                }
-            }
-            else if(pathvis[n]){
-                safe[i] = 1;
-                return true;
-            }
-            // else if(visited[n] && safe[n] == 1) safe[i] = 1;
+        
+        if(graph[i].length == 0){
+            safeNodes.add(i);
+            return true;
         }
-        pathvis[i] = false;
-        return false;
+        
+        pathVisited[i] = true;
+        
+        if(graph[i].length == 0){
+            safeNodes.add(i);
+            return true;
+        }
+        for(int n : graph[i]){
+            if(pathVisited[n]){
+                return false;
+            }
+            if(!visited[n]){
+                if(!dfs(n, graph, visited, pathVisited))
+                    return false;
+            }
+        }
+        
+        safeNodes.add(i);
+        pathVisited[i] = false;
+        return true;
     }
 }
