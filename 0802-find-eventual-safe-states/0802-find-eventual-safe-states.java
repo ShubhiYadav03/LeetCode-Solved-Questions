@@ -24,11 +24,7 @@ class Solution {
         }
         
         pathVisited[i] = true;
-        
-        if(graph[i].length == 0){
-            safeNodes.add(i);
-            return true;
-        }
+
         for(int n : graph[i]){
             if(pathVisited[n]){
                 return false;
