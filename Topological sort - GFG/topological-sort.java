@@ -15,7 +15,7 @@ class Main {
             int edg = Integer.parseInt(st[0]);
             int nov = Integer.parseInt(st[1]);
 
-            for (int i = 0; i < nov + 1; i++)
+            for (int i = 0; i < nov; i++)
                 list.add(i, new ArrayList<Integer>());
 
             int p = 0;
@@ -61,34 +61,38 @@ class Main {
 class Solution
 {
     //Function to return list containing vertices in Topological order. 
-    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
+    static int[] topoSort(int n, ArrayList<ArrayList<Integer>> adj) 
     {
-        boolean[] visited = new boolean[V];
-        Stack<Integer> st = new Stack<>();
-        
-        for(int i = 0; i < V; i++){
+        Stack<Integer> st = new Stack();
+        boolean[] visited = new boolean[n];
+        for(int i = 0; i < n; i++){
             if(!visited[i]){
-                dfs(i, visited, st, adj);
+                dfs(i, adj, visited, st);
             }
         }
-        int[] ans = new int[V];
-        int  i = 0;
+        int[] ans = new int[n];
+        int idx = 0;
         while(!st.isEmpty()){
-            ans[i] = st.pop();
-            i++;
+            ans[idx++] = st.pop();
         }
         
         return ans;
-        // add your code here
     }
     
-    static void dfs(int i, boolean[] visited, Stack<Integer> st, ArrayList<ArrayList<Integer>> adj){
-        visited[i] = true;
-        for(int n : adj.get(i)){
+    static void dfs(int node,  ArrayList<ArrayList<Integer>> adj, boolean[] visited, Stack<Integer> st){
+        visited[node] = true;
+        
+        for(int n : adj.get(node)){
             if(!visited[n]){
-                dfs(n, visited, st, adj);
+                dfs(n, adj, visited, st);
             }
         }
-        st.push(i);
+        
+        st.push(node);
     }
 }
+
+
+
+
+
