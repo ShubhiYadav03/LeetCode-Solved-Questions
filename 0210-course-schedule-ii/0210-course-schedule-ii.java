@@ -1,40 +1,49 @@
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        ArrayList<Integer> ans = new ArrayList<Integer>();
-        int k = 0;
-        int[] indegree = new int[numCourses];
-        int  num = numCourses - 1;
+        List<List<Integer>> adj = new ArrayList();
         
-        ArrayList<ArrayList<Integer>> adj = new ArrayList(numCourses);
-        
-        for(int i = 0; i < numCourses ; i++ ){
-            adj.add(new ArrayList());
+        for(int i = 0; i < numCourses; i++){
+            adj.add(new ArrayList<Integer>());
         }
         
-        for(int i = 0; i < prerequisites.length ; i++){
+        for(int i = 0; i < prerequisites.length; i++){
             adj.get(prerequisites[i][1]).add(prerequisites[i][0]);
-            indegree[prerequisites[i][0]]++; 
-        }
-     
-        Queue<Integer> q = new ArrayDeque<>();
-        
-        for(int i = 0; i < numCourses ; i++){
-            if(indegree[i] == 0)  q.add(i);
         }
         
-        while(!q.isEmpty()){
-            int node = q.remove();
-            ans.add(node);
-            for(int n : adj.get(node)){
-                indegree[n]--;
-                if(indegree[n] == 0) q.add(n);
+        Stack<Integer> st = new Stack();
+        boolean[] visited = new boolean[numCourses];
+        boolean[] pathVisited = new boolean[numCourses];
+        for(int i = 0; i < numCourses; i++){
+            if(!visited[i]){
+                if(!dfs(i, adj, visited, pathVisited, st)){
+                    return new int[]{};
+                }
             }
         }
-        if(ans.size() != numCourses) return new int[]{};
-        int[] res = new int[numCourses];
-        for(int i = 0; i < numCourses ; i++){
-            res[i] = ans.get(i);
+        int[] ans = new int[numCourses];
+        int idx = 0;
+        while(!st.isEmpty()){
+            ans[idx++] = st.pop();
         }
-        return res;
+        
+        return ans;
+    }
+    
+    boolean dfs(int node,  List<List<Integer>> adj, boolean[] visited, boolean[] pathVisited, Stack<Integer> st){
+        visited[node] = true;
+        pathVisited[node] = true;
+        
+        for(int n : adj.get(node)){
+            if(pathVisited[n])
+                return false;
+            if(!visited[n]){
+                if(!dfs(n, adj, visited, pathVisited, st))
+                    return false;
+            }
+        }
+        
+        pathVisited[node] = false;
+        st.push(node);
+        return true;
     }
 }
