@@ -1,37 +1,39 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        ArrayList<Integer> ans = new ArrayList<Integer>();
-
-        int[] indegree = new int[numCourses];
+        List<List<Integer>> adj = new ArrayList();
         
-        ArrayList<ArrayList<Integer>> adj = new ArrayList(numCourses);
-        
-        for(int i = 0; i < numCourses ; i++ ){
-            adj.add(new ArrayList());
+        for(int i = 0; i < numCourses; i++){
+            adj.add(new ArrayList<Integer>());
         }
         
-        for(int i = 0; i < prerequisites.length ; i++){
-            adj.get(prerequisites[i][1]).add(prerequisites[i][0]);
-            indegree[prerequisites[i][0]]++; 
+        for(int i = 0; i < prerequisites.length; i++){
+            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
         }
-     
-        Queue<Integer> q = new ArrayDeque<>();
+        boolean[] visited = new boolean[numCourses];
+        boolean[] pathVisited = new boolean[numCourses];
         
-        for(int i = 0; i < numCourses ; i++){
-            if(indegree[i] == 0)  q.add(i);
-        }
-        
-        while(!q.isEmpty()){
-            int node = q.remove();
-            ans.add(node);
-            for(int n : adj.get(node)){
-                indegree[n]--;
-                if(indegree[n] == 0) q.add(n);
+        for(int i = 0; i < numCourses; i++){
+            if(!visited[i]){
+                if(dfs(i, adj, visited, pathVisited)) return false;
             }
         }
-        if(ans.size() != numCourses) return false;
         return true;
     }
     
-
+    boolean dfs(int i,  List<List<Integer>> adj, boolean[] visited, boolean[] pathVisited){
+        visited[i] = true;
+        pathVisited[i] = true;
+        
+        for(int n : adj.get(i)){
+            if(pathVisited[n]){
+                return true;
+            }
+            if(!visited[n]){
+                if(dfs(n, adj, visited, pathVisited))
+                    return true;
+            }
+        }
+        pathVisited[i] = false;
+        return false;
+    }
 }
