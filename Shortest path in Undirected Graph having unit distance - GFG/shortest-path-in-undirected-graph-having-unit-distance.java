@@ -41,19 +41,19 @@ class Solution {
             adj.get(edge[0]).add(edge[1]);
             adj.get(edge[1]).add(edge[0]);
         }
+        
         int[] distances = new int[n];
         Arrays.fill(distances, -1);
-        //boolean[] visited = new boolean[n];
-        //visited[src] = true;
         distances[src] = 0;
+        
         Queue<Integer> q = new ArrayDeque();
         q.add(src);
+        
         while(!q.isEmpty()){
             int node = q.remove();
             
             for(int next : adj.get(node)){
                 if(distances[next] == -1){
-                   // visited[next] = true;
                     distances[next] = distances[node] + 1;
                     q.add(next);
                 }
