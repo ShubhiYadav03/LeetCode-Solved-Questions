@@ -31,7 +31,7 @@ class Solution {
             int row = p.row;
             int col = p.col;
             int diff = p.diff;
-            
+            if(row == m - 1 && col == n - 1) return diff;
             for(int i = 0; i < 4; i++){
                 int r = row + dy[i], c = col + dx[i];
                 
