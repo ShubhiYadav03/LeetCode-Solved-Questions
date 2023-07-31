@@ -63,31 +63,10 @@ class DisjointSet{
         }
     }
 }
-// User function Template for Java
-// class Edge{
-//     int src;
-//     int dst
-//     int wt;
-    
-//     Pair(int src, int dst, int wt){
-//         this.src = src;
-//         this.wt = wt;
-//         this.dst; = dst;
-//     }
-// }
 
 class Solution{
 	static int spanningTree(int n, int E, int edges[][]){
-	   // List<List<Edge>> adj = new ArrayList();
-        
-    //     for(int i = 0; i < n ; i++){
-    //         adj.add(new ArrayList<Pair>());
-    //     }
-        
-    //     for(int[] edge : edges){
-    //         adj.get(edge[0]).add(new Pair(edge[1], edge[2]));
-    //         adj.get(edge[1]).add(new Pair(edge[0], edge[2]));
-    //     }
+	    
         Arrays.sort(edges, (a, b) -> a[2] - b[2]);
 	    
 	    boolean[] visited = new boolean[n];
