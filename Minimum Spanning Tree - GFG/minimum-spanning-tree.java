@@ -30,45 +30,74 @@ public class Main{
 }
 // } Driver Code Ends
 
-
-// User function Template for Java
-class Pair{
-    int node;
-    int wt;
+class DisjointSet{
+    List<Integer> parent = new ArrayList();
+    List<Integer> size = new ArrayList();
     
-    Pair(int n, int w){
-        node = n;
-        wt = w;
+    DisjointSet(int n){
+        for(int i = 0; i < n; i++){
+            parent.add(i);
+            size.add(1);
+        }
+    }
+    
+    int findUlPar(int node){
+        if(parent.get(node) == node)
+            return node;
+        int ulp = findUlPar(parent.get(node));
+        parent.set(node, ulp);
+        return ulp;
+    }
+    
+    void unionBySize(int u, int v){
+        int ulpu = findUlPar(u);
+        int ulpv = findUlPar(v);
+        
+        if(ulpu < ulpv){
+            parent.set(ulpu, ulpv);
+            size.set(ulpv, size.get(ulpu));
+        }
+        else{
+            parent.set(ulpv, ulpu);
+            size.set(ulpu, size.get(ulpv));
+        }
     }
 }
+// User function Template for Java
+// class Edge{
+//     int src;
+//     int dst
+//     int wt;
+    
+//     Pair(int src, int dst, int wt){
+//         this.src = src;
+//         this.wt = wt;
+//         this.dst; = dst;
+//     }
+// }
 
 class Solution{
 	static int spanningTree(int n, int E, int edges[][]){
-	    List<List<Pair>> adj = new ArrayList();
+	   // List<List<Edge>> adj = new ArrayList();
         
-        for(int i = 0; i < n ; i++){
-            adj.add(new ArrayList<Pair>());
-        }
+    //     for(int i = 0; i < n ; i++){
+    //         adj.add(new ArrayList<Pair>());
+    //     }
         
-        for(int[] edge : edges){
-            adj.get(edge[0]).add(new Pair(edge[1], edge[2]));
-            adj.get(edge[1]).add(new Pair(edge[0], edge[2]));
-        }
-	    PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> Integer.compare(a.wt, b.wt));
-	    pq.add(new Pair(0, 0));
+    //     for(int[] edge : edges){
+    //         adj.get(edge[0]).add(new Pair(edge[1], edge[2]));
+    //         adj.get(edge[1]).add(new Pair(edge[0], edge[2]));
+    //     }
+        Arrays.sort(edges, (a, b) -> a[2] - b[2]);
+	    
 	    boolean[] visited = new boolean[n];
 	    int mstWt = 0;
-	    while(!pq.isEmpty()){
-	        Pair p = pq.remove();
-	        int node = p.node;
-	        int wt = p.wt;
-	        
-	        if(!visited[node]){
-	            visited[node] = true;
-	            mstWt += wt;
-	            for(Pair nextNode : adj.get(node)){
-	                pq.add(nextNode);
-	            }
+	    DisjointSet ds = new DisjointSet(n);
+	    
+	    for(int i = 0; i < E; i++){
+	        if(ds.findUlPar(edges[i][0]) != ds.findUlPar(edges[i][1])){
+	            mstWt += edges[i][2];
+	            ds.unionBySize(edges[i][0], edges[i][1]);
 	        }
 	    }
 	    return mstWt;
