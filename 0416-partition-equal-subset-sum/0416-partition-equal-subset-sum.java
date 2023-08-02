@@ -1,39 +1,23 @@
 class Solution {
     public boolean canPartition(int[] nums) {
-        int n = nums.length;
-        if(n == 1) return false;
-        int sum = 0;
+        int targetSum = 0;
         for(int num : nums){
-            sum += num;
+            targetSum += num;
         }
-        if(sum % 2 != 0) return false;
-        sum = sum/2;
-        
-        int dp[][] = new int[n][sum + 1];
-        
-        return solve(0, n, sum, nums, 0, dp);
+        if(targetSum % 2 == 1) return false;
+        targetSum = targetSum/2;
+        int[][] dp = new int[nums.length][targetSum + 1];
+        return findSum(0, 0, targetSum, nums, dp) == 1;
     }
     
-    boolean solve(int i, int n, int k, int arr[], int sum, int dp[][]){
-        if(sum > k) return false;
-        if(sum == k) return true;
-
-        if(i == n) return false;
-        if(dp[i][sum] != 0){
-            return dp[i][sum] == 1;
-        }
-        dp[i][sum] = 1;
-        if(sum + arr[i] <= k){
-            if(solve(i + 1, n, k, arr, sum + arr[i], dp)){
-                return true;
-            }
-        }
-            if(solve(i + 1, n, k, arr, sum, dp)){
-                return true;
-            }
+    int findSum(int i, int sum, int targetSum, int[] arr, int[][] dp){
+        if(sum == targetSum) return 1;
+        if(i >= arr.length) return -1;
         
-        dp[i][sum] = -1;
-        return false;
-        
+        if(dp[i][sum] != 0) return dp[i][sum];
+        if(arr[i] + sum <= targetSum){
+            if(findSum(i + 1, sum + arr[i], targetSum, arr, dp) == 1) return dp[i][sum] = 1;
+        }
+        return dp[i][sum] = findSum(i + 1, sum, targetSum, arr, dp);
     }
 }
