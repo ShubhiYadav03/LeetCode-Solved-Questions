@@ -13,14 +13,14 @@ class Solution {
     int solve(int idx, int sum, int[] coins, int amount, int dp[][]){
         int n = coins.length;
         if(idx == n - 1){
-            if((amount - sum)% coins[idx] == 0) 
+            if((amount - sum) % coins[idx] == 0) 
                 return (amount - sum) / coins[idx];
             return amount + 1;
         }
         
         if(dp[idx][sum] != -1) return dp[idx][sum];
         int pick = amount + 1;
-        if(coins[idx] + sum <= amount){
+        if(coins[idx] + sum <= amount && sum + coins[idx] >= 0){
             pick = solve(idx, sum + coins[idx], coins, amount, dp) + 1;
         }
         int notpick = solve(idx + 1, sum, coins, amount, dp);
