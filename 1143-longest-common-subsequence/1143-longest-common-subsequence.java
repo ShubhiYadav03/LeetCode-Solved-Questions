@@ -19,10 +19,11 @@ class Solution {
         int pick = 0;
         if(ch1 == ch2){
             pick = solve(idx1 + 1, idx2 + 1, text1, text2, dp) + 1;
+            return dp[idx1][idx2] = pick; 
         }
         int notpick1 = solve(idx1, idx2 + 1, text1, text2, dp);
         int notpick2 = solve(idx1 + 1, idx2, text1, text2, dp);
         
-        return dp[idx1][idx2] = Math.max(pick, Math.max(notpick1, notpick2));
+        return dp[idx1][idx2] = Math.max(notpick1, notpick2);
     }
 }
