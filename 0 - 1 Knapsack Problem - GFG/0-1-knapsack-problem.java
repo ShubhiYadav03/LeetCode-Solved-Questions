@@ -51,48 +51,27 @@ class Solution
     //Function to return max value that can be put in knapsack of capacity W.
     static int knapSack(int W, int wt[], int val[], int n) 
     { 
-        int[][] dp = new int[n][W + 1];
+        int dp[][] = new int[n][W + 1];
         for(int[] row : dp){
             Arrays.fill(row, -1);
         }
-        return solve(0, W, wt, val, n, dp);
+        
+        return solve(0, 0, wt, val, W, dp);
     } 
     
-    static int tabulatin(int W, int wt[], int val[], int n){
-        int[][] dp = new int[n + 1][W + 1];
-        
-        for(int idx = n - 1; idx >= 0; idx--){
-            for(int cap = 0; cap <= W; cap++){
-                // if(idx == n || cap == 0) dp[n][cap] = 0;
-                int pick = 0;
-                if(cap >= wt[idx])
-                    pick = dp[idx + 1][cap - wt[idx]] + val[idx];
-        
-                int notpick = dp[idx + 1][cap];  
-                dp[idx][cap] = Math.max(pick, notpick);
-            }
-        }
-        
-        return dp[0][W];
-    }
-    
-    static int solve(int idx, int cap, int wt[], int val[], int n, int[][] dp){
-        if(idx == n || cap == 0){
+    static int solve(int idx, int currWt, int wt[], int val[], int totalWt, int dp[][]){
+        int n = wt.length;
+        if(idx == n){
             return 0;
         }
-        
-        if(dp[idx][cap] != -1){
-            return dp[idx][cap];
-        }
-        
+        if(dp[idx][currWt] != -1) return dp[idx][currWt];
         int pick = 0;
-        if(cap >= wt[idx]){
-            pick = solve(idx + 1, cap - wt[idx], wt, val, n, dp) + val[idx];
+        if(wt[idx] + currWt <= totalWt){
+            pick = val[idx] + solve(idx + 1, currWt + wt[idx], wt, val, totalWt, dp);
         }
+        int notpick = solve(idx + 1, currWt, wt, val, totalWt, dp);
         
-        int notpick = solve(idx + 1, cap, wt, val, n, dp); 
-        
-        return dp[idx][cap] = Math.max(pick, notpick);
+        return dp[idx][currWt] = Math.max(pick, notpick);
     }
 }
 
