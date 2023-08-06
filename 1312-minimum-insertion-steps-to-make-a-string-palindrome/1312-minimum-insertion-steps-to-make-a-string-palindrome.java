@@ -6,7 +6,7 @@ class Solution {
             Arrays.fill(row, -1);
         }
         int ans = solve(0, n - 1, s, dp);
-        return (ans < (int)1e9) ? ans : 0;
+        return ans;
     }
 
     int solve(int idx1, int idx2, String str, int[][] dp){
