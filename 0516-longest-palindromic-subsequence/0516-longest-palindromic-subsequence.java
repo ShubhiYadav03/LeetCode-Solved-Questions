@@ -27,6 +27,6 @@ class Solution {
         int notpick1 = solve(idx1, idx2 - 1, str, dp);
         int notpick2 = solve(idx1 + 1, idx2, str, dp);
         
-        return dp[idx1][idx2] = Math.max(pick, Math.max(notpick1, notpick2));
+        return dp[idx1][idx2] = Math.max(notpick1, notpick2);
     }
 }
