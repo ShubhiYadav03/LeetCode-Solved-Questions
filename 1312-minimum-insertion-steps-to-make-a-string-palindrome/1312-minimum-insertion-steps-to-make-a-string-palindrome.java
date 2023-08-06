@@ -5,25 +5,26 @@ class Solution {
         for(int[] row : dp){
             Arrays.fill(row, -1);
         }
-        return solve(0, n - 1, s, dp);
+        int ans = solve(0, n - 1, s, dp);
+        return (ans < (int)1e9) ? ans : 0;
     }
-    // mdabadm
-    // mdabm
-    int solve(int idx, int rev, String s, int[][] dp){
-        int n = s.length();
-        if(idx >= rev) return 0;
 
-        
-        if(dp[idx][rev] != -1) return dp[idx][rev];
-        
-        int pick = Integer.MAX_VALUE;
-        if(s.charAt(idx) == s.charAt(rev)){
-            pick = solve(idx + 1, rev - 1, s, dp);
-            return dp[idx][rev] = pick;
+    int solve(int idx1, int idx2, String str, int[][] dp){
+        int n = str.length();
+        if(idx1 > idx2){
+            return 0;
         }
         
-        int notpick = Math.min(solve(idx + 1, rev, s, dp), solve(idx, rev - 1, s, dp)) + 1;
+        if(dp[idx1][idx2] != -1) return dp[idx1][idx2];
+        int pick = 0;
+        if(str.charAt(idx1) == str.charAt(idx2)){
+            pick = solve(idx1 + 1, idx2 - 1, str, dp);
+            return dp[idx1][idx2] = pick;
+        }
         
-        return dp[idx][rev] = notpick;
+        int notpick1 = solve(idx1, idx2 - 1, str, dp) + 1;
+        int notpick2 = solve(idx1 + 1, idx2, str, dp) + 1;
+        
+        return dp[idx1][idx2] = Math.min(notpick1, notpick2);
     }
 }
