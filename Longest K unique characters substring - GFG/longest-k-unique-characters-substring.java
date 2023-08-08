@@ -23,27 +23,26 @@ class GfG {
 
 class Solution {
     public int longestkSubstr(String s, int k) {
-        Map<Character, Integer> map = new HashMap<>();
-        int j = 0;
-        int max = -1;
+        if(s.length() < k) return -1;
+        int ans = 0, curr = 0, j = 0;
+        Map<Character, Integer> map = new HashMap();
         for(int i = 0; i < s.length(); i++){
-            char ch = s.charAt(i);
-            if(map.containsKey(ch)){
-                map.put(ch, map.get(ch) + 1);
+            char chi = s.charAt(i);
+            map.put(chi, map.getOrDefault(chi, 0) + 1);
+            curr++;
+            
+            while(map.size() == k + 1){
+                    char ch = s.charAt(j);
+                    map.put(ch, map.get(ch) - 1);
+                    if(map.get(ch) == 0) map.remove(ch);
+                    j++;
+                    curr--;
             }
-            else map.put(ch, 1);
             
             if(map.size() == k){
-                max = Math.max(max, i - j + 1);
-            }
-            if(map.size() > k){
-                while(map.size() > k){
-                    map.put(s.charAt(j), map.get(s.charAt(j)) - 1);
-                    if(map.get(s.charAt(j)) == 0) map.remove(s.charAt(j));
-                    j++;
-                }
+                ans = Math.max(ans, curr);
             }
         }
-        return max;
-    }
+        return (ans == 0) ? -1 : ans;
+    } 
 }
