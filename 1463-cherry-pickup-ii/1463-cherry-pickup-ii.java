@@ -9,16 +9,12 @@ class Solution {
             }
         }
         int collected = pickup(0, 0, n - 1, grid, dp);
-        return (collected >= 0) ? collected : 0;
+        return collected;
     }
      
     int pickup(int row, int c1, int c2, int[][] grid, int[][][] dp){
         int m = grid.length, n = grid[0].length;
         if(row >= m || c1 < 0 || c2 < 0 || c1 >= n || c2 >= n) return 0;
-        
-        if(row == m){
-            return grid[row][c1] + grid[row][c1];
-        }
         
         if(dp[row][c1][c2] != -1) return dp[row][c1][c2];
         
