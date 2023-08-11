@@ -10,12 +10,13 @@ class Solution {
         return solve(0, 0, s, t, dp);
     }
     
-    int solve(int idx1, int idx2, String s, String t, int[][] dp){
+    int solve(int idx1, int idx2, String s, String t,  int[][] dp){
         int m = s.length(), n = t.length();
         if(idx2 == n) return 1;
         if(idx1 == m) return 0;
         
         if(dp[idx1][idx2] != -1) return dp[idx1][idx2];
+        
         int pick = 0;
         if(s.charAt(idx1) == t.charAt(idx2)){
             pick = solve(idx1 + 1, idx2 + 1, s, t, dp);
@@ -25,5 +26,4 @@ class Solution {
         
         return dp[idx1][idx2] = pick + notpick;
     }
-    
 }
