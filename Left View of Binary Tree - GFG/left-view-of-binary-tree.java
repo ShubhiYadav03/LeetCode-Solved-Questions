@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 import java.util.LinkedList; 
 import java.util.Queue; 
 import java.io.*;
@@ -102,6 +102,7 @@ class GfG {
         }
     }
 }
+
 // } Driver Code Ends
 
 
@@ -121,29 +122,20 @@ class Node
 }*/
 class Tree
 {
+    ArrayList<Integer> list = new ArrayList();
     //Function to return list containing elements of left view of binary tree.
     ArrayList<Integer> leftView(Node root)
     {
-        ArrayList<Integer> list=new ArrayList<Integer>();
-        int currLevel=1;
-        left(root,currLevel,list);
+        dfs(root, 1);
         return list;
     }
-    int max=0;
-    void left(Node node,int currLevel,ArrayList<Integer> list){
-        if(node==null) {
-            //currLevel--;
-            return;
-        }
+    
+    void dfs(Node node, int height){
+        if(node == null) return;
         
-        if(currLevel>max) {
-            list.add(node.data);
-            max=currLevel;
-        }
-        left(node.left,currLevel+1,list);
-       // currLevel-=1;
-        left(node.right,currLevel+1,list);
-       //currLevel-=1;
+        if(list.size() < height) list.add(node.data);
         
+        dfs(node.left, height + 1);
+        dfs(node.right, height + 1);
     }
 }
