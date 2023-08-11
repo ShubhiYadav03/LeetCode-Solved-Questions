@@ -23,6 +23,5 @@ class Solution {
         preorderTraversal(root.right);
         
         return list;
-        
     }
 }
