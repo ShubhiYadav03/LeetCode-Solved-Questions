@@ -10,21 +10,22 @@ class Solution {
         return solve(0, 0, word1, word2, dp);
     }
     
-    int solve(int idx1, int idx2, String s, String t, int[][] dp){
-        int m = s.length(), n = t.length();
-        if(idx2 == n) return m - idx1;
+    int solve(int idx1, int idx2, String word1, String word2,  int[][] dp){
+        int m = word1.length(), n = word2.length();
+        if(idx2 == n ) return m - idx1;
         if(idx1 == m) return n - idx2;
         
         if(dp[idx1][idx2] != -1) return dp[idx1][idx2];
-        int pick = 0;
-        if(s.charAt(idx1) == t.charAt(idx2)){
-            pick = solve(idx1 + 1, idx2 + 1, s, t, dp);
+        
+        if(word1.charAt(idx1) == word2.charAt(idx2)){
+            int pick = solve(idx1 + 1, idx2 + 1, word1, word2, dp);
             return dp[idx1][idx2] = pick;
         }
         
-        int notpick = Math.min(solve(idx1 + 1, idx2, s, t, dp), solve(idx1, idx2 + 1, s, t, dp));
-        notpick = Math.min(notpick, solve(idx1 + 1, idx2 + 1, s, t, dp)) + 1;
+        int delete = solve(idx1 + 1, idx2, word1, word2, dp);
+        int insert = solve(idx1, idx2 + 1, word1, word2, dp);
+        int replace = solve(idx1 + 1, idx2 + 1, word1, word2, dp);
         
-        return dp[idx1][idx2] = notpick;
+        return dp[idx1][idx2] = Math.min(delete, Math.min(insert, replace)) + 1;
     }
 }
