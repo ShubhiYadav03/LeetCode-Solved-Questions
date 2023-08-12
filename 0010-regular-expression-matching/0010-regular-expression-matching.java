@@ -2,34 +2,42 @@ class Solution {
     public boolean isMatch(String s, String p) {
         if(s.equals(p)) return true;
         int m = s.length(), n = p.length();
-        int[][] dp = new int[m + 1][n + 1];
+        int[][] dp = new int[m][n];
         
-        dp[0][0] = 1;
-        int i = 1;
-        while(i < n && p.charAt(i) == '*'){
-            dp[0][i + 1] = 1;
-            i += 2; 
-        }
-        
-        for(int idx1 = 1; idx1 <= m; idx1++){
-            for(int idx2 = 1; idx2 <= n; idx2++){
-        
-                if(s.charAt(idx1 - 1) == p.charAt(idx2 - 1) || p.charAt(idx2 - 1) == '.'){
-                    int pick = dp[idx1 - 1][idx2 - 1];
-                    dp[idx1][idx2] = pick;
-                }
+        int ans = solve(0, 0, s, p, dp);
+        return ans == 1;
+    }
     
-                else if(s.charAt(idx1 - 1) != p.charAt(idx2 - 1) && p.charAt(idx2 - 1) == '*'){
-                    int pick = 0;
-                    if(s.charAt(idx1 - 1) == p.charAt(idx2 - 2) || p.charAt(idx2 - 2) == '.'){
-                        pick = (dp[idx1 - 1][idx2] == 1) ? 1 : dp[idx1][idx2 - 1];
-                    }
-                        int notpick = (idx2 - 2 >= 0) ? dp[idx1][idx2 - 2] : 0;
-                        dp[idx1][idx2] = (notpick + pick > 0) ? 1 : 0;
-                }
-                else dp[idx1][idx2] = 0;
+    int solve(int idx1, int idx2, String s, String p, int[][] dp){
+        int m = s.length(), n = p.length();
+        if(idx1 == m && idx2 == n) return 1;
+        
+        if(idx2 == n) return -1;
+        if(idx1 == m){
+            while(idx2 + 1 < n && p.charAt(idx2 + 1) == '*'){
+                idx2 += 2;
             }
+            return (idx2 == n) ? 1 : -1;
         }
-        return dp[m][n] == 1;
+        char chs = s.charAt(idx1), chp = p.charAt(idx2);
+        if(idx1 == m - 1 && idx2 == n - 1 && (chs == chp || chp == '.')) return 1;
+        
+        if(dp[idx1][idx2] != 0) return dp[idx1][idx2];
+        
+        
+        if(idx2 + 1 < n && p.charAt(idx2 + 1) != '*' && (chs == chp || chp == '.')){
+            return dp[idx1][idx2] = solve(idx1 + 1, idx2 + 1, s, p, dp);
+        }
+        
+        if(idx2 + 1 < n && p.charAt(idx2 + 1) == '*'){
+            int pick = 0;
+            if(chs == chp || chp == '.'){
+                pick = solve(idx1 + 1, idx2, s, p, dp);
+            }
+            int notpick = solve(idx1, idx2 + 2, s, p, dp);
+            
+            return dp[idx1][idx2] = (pick == 1) ? pick : notpick;
+        }
+        return -1;
     }
 }
