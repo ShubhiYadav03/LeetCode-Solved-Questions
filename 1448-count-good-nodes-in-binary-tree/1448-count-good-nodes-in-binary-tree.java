@@ -14,18 +14,22 @@
  * }
  */
 class Solution {
-    int ans=0;
+    int ans = 0;
     public int goodNodes(TreeNode root) {
-        good(root,root.val);
+        dfs(root, root.val);
+        
         return ans;
     }
-    void good(TreeNode node,int val){
-        if(node==null) return;
+    
+    void dfs(TreeNode node, int max){
+        if(node == null) return;
         
-        good(node.left,Math.max(val,node.val));
-        good(node.right,Math.max(val,node.val));
+        if(node.val >= max){
+            ans++;
+            max = node.val;
+        }
         
-        if(node.val>=val) ans+=1;
-        
+        dfs(node.left, max);
+        dfs(node.right, max);
     }
 }
