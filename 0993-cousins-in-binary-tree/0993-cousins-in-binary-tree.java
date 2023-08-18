@@ -14,24 +14,35 @@
  * }
  */
 class Solution {
-    int htx = 0, hty = 0;
-    boolean sib = false;
+    TreeNode parentx = null, parenty = null;
+    int heightx = 0, heighty = 0;
     public boolean isCousins(TreeNode root, int x, int y) {
-        dfs(root, x, y, 0);
+        solve(root, x, y, 0);
         
-        return (sib) ? !sib : htx == hty;
+        return parentx != parenty && heightx == heighty;
     }
     
-    void dfs(TreeNode node, int x, int y, int height){
-        if(node == null) return;
-        if((node.left != null && (node.left.val == x || node.left.val == y)) && (node.right != null && (node.right.val == y || node.right.val == x))){
-            sib = true;
-            return;
+    int solve(TreeNode node, int x, int y, int height){
+        if(node == null) return 0;
+        
+        int left = solve(node.left, x, y, height + 1);
+        int right = solve(node.right, x, y, height + 1);
+        
+        if(left == x){
+            parentx = node;
+            heightx = height + 1;
         }
-        if(node.val == x) htx = height;
-        if(node.val == y) hty = height;
-        dfs(node.left, x, y, height + 1);
-        dfs(node.right, x, y, height + 1);
+        
+        if(left == x || right == x){
+            parentx = node;
+            heightx = height + 1;
+        }
+        
+        if(left == y || right == y){
+            parenty = node;
+            heighty = height + 1;
+        }
+        
+        return node.val;
     }
-    
 }
