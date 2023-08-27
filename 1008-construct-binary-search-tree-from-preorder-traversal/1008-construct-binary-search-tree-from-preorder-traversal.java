@@ -14,18 +14,21 @@
  * }
  */
 class Solution {
-    int i=0;
+    int idx = 0;
     public TreeNode bstFromPreorder(int[] preorder) {
-        return bst(preorder,Double.POSITIVE_INFINITY);
+        // TreeNode root = new TreeNode(preorder[0]);
+        
+        return createBST(preorder, Integer.MAX_VALUE);
     }
     
-    TreeNode bst(int[] preorder,double bound){
-        if(i>=preorder.length || preorder[i]>=bound) return null;
+    TreeNode createBST(int[] preorder, int bound){
+        if(idx == preorder.length || preorder[idx] > bound) return null;
         
-        TreeNode root=new TreeNode(preorder[i++]);
-        root.left=bst(preorder,root.val);
-        root.right=bst(preorder,bound);
-        return root;
+        TreeNode node = new TreeNode(preorder[idx++]);
         
+        node.left = createBST(preorder, node.val);
+        node.right = createBST(preorder, bound);
+        
+        return node;
     }
 }
